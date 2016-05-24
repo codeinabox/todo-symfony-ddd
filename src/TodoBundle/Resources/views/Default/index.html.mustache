@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+</head>
+<body>
+
+<h1>Todo</h1>
+<h2>Incomplete tasks</h2>
+{{#hasIncompleteTasks}}
+<ul>
+  {{#incompleteTasks}}
+      <li>{{getDescription}} <a href="/complete/{{getId}}">Complete task</a> </li>
+  {{/incompleteTasks}}
+</ul>
+{{/hasIncompleteTasks}}
+{{^hasIncompleteTasks}}
+<p>There are no incomplete tasks</p>
+{{/hasIncompleteTasks}}
+
+<form action="/task" method="post" accept-charset="utf-8">
+    <label for="description"></label><input type="text" name="description" value="" id="description">
+
+    <p><input type="submit" value="Add task"></p>
+</form>
+
+<h2>Completed tasks</h2>
+{{#hasCompleteTasks}}
+<ul>
+  {{#completeTasks}}
+      <li>{{getDescription}}</li>
+  {{/completeTasks}}
+</ul>
+{{/hasCompleteTasks}}
+{{^hasCompleteTasks}}
+<p>There are no complete tasks</p>
+{{/hasCompleteTasks}}
+
+</body>
+</html>

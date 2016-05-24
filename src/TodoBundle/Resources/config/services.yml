@@ -1,0 +1,11 @@
+services:
+    todo.task_repository:
+        class: TodoBundle\Repository\TaskRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - Todo\Entity\Task
+
+    todo.task_service:
+        class: Todo\Service\TaskService
+        arguments:
+            - "@todo.task_repository"

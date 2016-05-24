@@ -1,0 +1,14 @@
+Todo\Entity\Task:
+    type: entity
+    repositoryClass: TodoBundle\Repository\TaskRepository
+    table: task
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        description:
+            type: string
+            length: 255
+        completed:
+            type: boolean
