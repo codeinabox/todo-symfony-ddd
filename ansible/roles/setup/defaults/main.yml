@@ -1,0 +1,15 @@
+project_name: default
+project_root: /var/projects/default
+document_root: /var/projects/default/web
+app_name: Default
+server_name: default
+
+apt:
+    packages:
+        - php7.0
+        - php7.0-fpm
+        - php7.0-mysql
+        - php-xml
+        - nginx
+        - python-mysqldb
+        - mysql-server

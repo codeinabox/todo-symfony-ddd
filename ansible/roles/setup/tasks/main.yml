@@ -1,0 +1,55 @@
+---
+# Setup
+
+- name: Add PHP repository
+  apt_repository: repo='ppa:ondrej/php'
+  become: yes
+
+- name: Make sure we're using the latest
+  apt: update_cache=yes
+  become: yes
+
+- name: Install packages
+  apt: name={{ item }}
+  with_items: '{{ apt.packages }}'
+  become: yes
+
+- name: Create user
+  user: name={{project_name}} groups=www-data state=present
+  become: yes
+
+- name: Create MySql application database
+  mysql_db: name=todo state=present
+  become: yes
+
+- name: Create application DB User
+  mysql_user: name=todo password=12345 priv=*.*:ALL state=present
+  become: yes
+
+- name: Remove the default Nginx site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  become: yes
+
+- name: Correctly set the permissions on php5-fpm.sock
+  file: path=/var/run/php/php7.0-fpm.sock group=www-data owner=www-data
+  become: yes
+
+- name: Restart the FPM PHP service
+  service: name=php7.0-fpm enabled=yes state=started
+  become: yes
+
+- name: Configure default nginx server block
+  template: src=templates/nginx/server_block.conf.j2 dest=/etc/nginx/sites-available/default
+  become: yes
+
+- name: Enable default nginx server block
+  file: src=/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default state=link
+  become: yes
+
+- name: Start Nginx service
+  service: name=nginx enabled=yes state=started
+  become: yes
+
+- name: Reload Nginx service
+  service: name=nginx state=restarted
+  become: yes
