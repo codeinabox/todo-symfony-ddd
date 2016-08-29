@@ -25,6 +25,7 @@ class TaskRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $task = $this->prophesize(Task::class);
         $this->emProphet->persist($task)->shouldBeCalled();
+        $this->emProphet->flush()->shouldBeCalled();
         $this->repository->add($task->reveal());
     }
 

@@ -38,9 +38,6 @@ class DefaultController extends Controller
         $taskService = $this->container->get('todo.task_service');
         $taskService->create($description);
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $em->flush();
-
         return $this->redirectToRoute('homepage', array(), 301);
     }
 
@@ -51,9 +48,6 @@ class DefaultController extends Controller
     {
         $taskService = $this->container->get('todo.task_service');
         $taskService->markComplete($id);
-
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $em->flush();
 
         return $this->redirectToRoute('homepage', array(), 301);
     }

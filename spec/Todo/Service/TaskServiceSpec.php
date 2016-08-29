@@ -21,6 +21,7 @@ class TaskServiceSpec extends ObjectBehavior
     {
         $this->beConstructedWith($repository);
         $repository->findById('123')->willReturn($task);
+        $repository->update($task)->shouldBeCalled();
         $task->complete()->shouldBeCalled();
         $this->markComplete('123')->shouldEqual($task);
     }

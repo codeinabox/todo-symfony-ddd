@@ -16,6 +16,11 @@ interface TaskRepository
     public function add(Task $task);
 
     /**
+     * @param Task $task
+     */
+    public function update(Task $task);
+
+    /**
      * @return Task
      */
     public function findById($taskId);

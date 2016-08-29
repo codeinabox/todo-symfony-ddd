@@ -42,6 +42,7 @@ class TaskService
             throw new TaskNotFoundException("No task found with $taskId");
         }
         $task->complete();
+        $this->repository->update($task);
         return $task;
     }
 

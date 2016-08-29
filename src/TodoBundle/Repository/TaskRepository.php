@@ -11,6 +11,12 @@ class TaskRepository extends EntityRepository implements TaskRepositoryInterface
     public function add(Task $task)
     {
         $this->getEntityManager()->persist($task);
+        $this->getEntityManager()->flush();
+    }
+
+    public function update(Task $task)
+    {
+        $this->getEntityManager()->flush();
     }
 
     /**
