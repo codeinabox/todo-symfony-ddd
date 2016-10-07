@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use TodoBundle\DTO\TaskDTO;
 
 class DefaultController extends Controller
 {
@@ -15,8 +16,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $taskService = $this->container->get('todo.task_service');
-        $completeTasks = $taskService->completeTasks();
-        $incompleteTasks = $taskService->incompleteTasks();
+        $completeTasks = $this->transformToDTOs($taskService->completeTasks());
+        $incompleteTasks = $this->transformToDTOs($taskService->incompleteTasks());
         return $this->render(
             'TodoBundle:Default:index.html.mustache',
             [
@@ -50,5 +51,14 @@ class DefaultController extends Controller
         $taskService->markComplete($id);
 
         return $this->redirectToRoute('homepage', array(), 301);
+    }
+
+    private function transformToDTOs($collection)
+    {
+        $dtos = [];
+        foreach ($collection as $task) {
+            $dtos[] = new TaskDTO($task);
+        }
+        return $dtos;
     }
 }

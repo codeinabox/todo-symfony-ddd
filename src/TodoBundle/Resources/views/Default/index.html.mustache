@@ -13,7 +13,7 @@
 {{#hasIncompleteTasks}}
 <ul>
   {{#incompleteTasks}}
-      <li>{{getDescription}} <a href="/complete/{{getId}}">Complete task</a> </li>
+      <li>{{description}} <a href="/complete/{{id}}">Complete task</a> </li>
   {{/incompleteTasks}}
 </ul>
 {{/hasIncompleteTasks}}
@@ -31,7 +31,7 @@
 {{#hasCompleteTasks}}
 <ul>
   {{#completeTasks}}
-      <li>{{getDescription}}</li>
+      <li>{{description}}</li>
   {{/completeTasks}}
 </ul>
 {{/hasCompleteTasks}}
